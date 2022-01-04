@@ -1,5 +1,6 @@
 import csv
 import os.path
+import pandas as pd
 from csv import writer
 
 class FileTool:
@@ -42,12 +43,11 @@ class FileTool:
         '''
         - Prints the data containing the searched word.
         '''
-        search_ = input("Search a keyword: ")
-        reader = csv.reader(open(filename, 'r'))
-        for row in reader:
-            if row[0] == search_ or row[1] == search_:
-                return row[:]
-        return None # return None if no match
+        search_ = input("Search a dataframe value: ")
+        with open(self.path, 'r') as f:
+            for line in f.readlines():
+                if search_ in line:
+                    print(line)
 
     def appendData(self):
         '''
@@ -69,3 +69,11 @@ class FileTool:
             for line in lines:
                 if line.strip("\n") != deleted_:
                     f_object.write(line)
+
+    def updateData(self):
+        '''
+        - Updates the desired data.
+        '''
+        df = pd.read_csv(self.path)
+        df.replace('{}'.format(input("Enter a old value: ")),'{}'.format(input("Enter a new value: ")), inplace=True)
+        return df
