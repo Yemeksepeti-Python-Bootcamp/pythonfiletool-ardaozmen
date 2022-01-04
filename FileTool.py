@@ -77,3 +77,34 @@ class FileTool:
         df = pd.read_csv(self.path)
         df.replace('{}'.format(input("Enter a old value: ")),'{}'.format(input("Enter a new value: ")), inplace=True)
         return df
+
+    def Menu(self):
+        '''
+        Press [1] to search data,
+        Press [2] to append data,
+        Press [3] to delete data,
+        Press [4] to update data,
+        Press [5] to create new file,
+        Press [6] to convert csv2json format,
+        Press [7] to quit the program,
+        '''
+        while True:
+            select_ = input("Press [1] to search data,\nPress [2] to append data,\nPress [3] to delete data,\nPress [4] to update data,\nPress [5] to create new file,\nPress [6] to convert csv2json format,\nPress [7] to quit the program,\nSelect the action you want to do: ")
+            if select_ == '1':
+                self.searchData()
+            elif select_ == '2':
+                self.appendData()
+            elif select_ == '3':
+                self.deleteData()
+            elif select_ == '4':
+                self.updateData()
+            elif select_ == '5':
+                self.createNewFile()
+            elif select_ == '6':
+                self.toJson()
+            elif select_ == '7':
+                break
+
+path = 'innovators.csv'
+ft = FileTool(path)
+ft.Menu()
