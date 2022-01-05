@@ -16,7 +16,7 @@ class FileTool:
         '''
         return os.path.exists(self.path)
     
-    def createNewFile(self): 
+    def createNewFile(self):
         '''
         - If there is no file matching the format in the path, 
         - it creates a new file.
@@ -73,10 +73,10 @@ class FileTool:
         '''
         - Adds new data to the data in a new row.
         '''
-        appended_ = [item for item in input("Enter the data with spaces: ").split()]
+        appended_ = [item for item in input("Enter the data with comma: ").split(',')]
         with open(self.path, 'a', newline='') as f_object:
             writer_object = writer(f_object)
-            writer_object.writerow2(appended_)  
+            writer_object.writerow(appended_)
             f_object.close()
 
     def deleteData(self):
@@ -84,8 +84,9 @@ class FileTool:
         - Deletes the desired data.
         '''
         deleted_ = input("Enter a deleted what you want: ")
-        with open(self.path, 'r+') as f_object:
-            lines = f_object.readlines()
+        with open(self.path, "r") as f_object:
+                lines = f_object.readlines()
+        with open(self.path, "w") as f_object:
             for line in lines:
                 if line.strip("\n") != deleted_:
                     f_object.write(line)
@@ -116,7 +117,7 @@ class FileTool:
                 outfile.write('[{}]'.format(
                     ','.join([open(f, "rb").read() for f in read_files])))
         else:
-            print('The file format is not suitable.')
+            print('The file format is not acceptable.')
     
     def Menu(self):
         '''
@@ -147,5 +148,5 @@ class FileTool:
                 break
 
 path = 'innovators.csv'
-ft = FileTool(path, fields=['Name','Contribution'])
+ft = FileTool(path, fields=['Name', 'Contribution'])
 ft.Menu()
