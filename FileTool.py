@@ -1,4 +1,4 @@
-import csv,glob
+import csv
 import os.path
 import pandas as pd
 from csv import writer
@@ -103,22 +103,16 @@ class FileTool:
         f_obj2.writelines(f_obj1)
         f_obj2.close()
         
-    def mergeFiles(self): # TODO some bugs will be fixed.
+    def mergeFiles(self,frames=[]):
+        # frames=['innovators.csv','deneme.csv','deneme2.csv']
         '''
-        - Merges JSON or CSV all files in path.
+        - This Function takes as parameter the csv files that you want to combine as a list.
         '''
-        if self.path.endswith(".csv"): 
-            dfs = glob.glob('path/*.csv')
-            result = pd.concat([pd.read_csv(df) for df in dfs], ignore_index=True)
-            result.to_csv('path/merged.csv', ignore_index=True)
-        elif self.path.endswith(".json"): 
-            read_files = glob.glob("*.json")
-            with open("merged_file.json", "wb") as outfile:
-                outfile.write('[{}]'.format(
-                    ','.join([open(f, "rb").read() for f in read_files])))
-        else:
-            print('The file format is not acceptable.')
-    
+        myDataFrame = pd.DataFrame()
+        for df in frames:
+            myDataFrame = myDataFrame.append(pd.read_csv(df))
+            myDataFrame.to_csv('merged.csv',index=False)
+        
     def Menu(self):
         '''
         Press [1] to search data,
@@ -126,12 +120,10 @@ class FileTool:
         Press [3] to delete data,
         Press [4] to update data,
         Press [5] to create new file,
-        Press [6] to convert csv2json format,
-        Press [7] to merge files,
-        Press [8] to quit the program,
+        Press [6] to quit the program,
         '''
         while True:
-            select_ = input("Press [1] to search data,\nPress [2] to append data,\nPress [3] to delete data,\nPress [4] to update data,\nPress [5] to create new file,\nPress [6] to convert csv2json format,\nPress [7] to merge files,\nPress [8] to quit the program,\nSelect the action you want to do: ")
+            select_ = input("Press [1] to search data,\nPress [2] to append data,\nPress [3] to delete data,\nPress [4] to update data,\nPress [5] to create new file,\nPress [6] to quit the program,\nSelect the action you want to do: ")
             if select_ == '1':
                 self.searchData()
             elif select_ == '2':
@@ -143,8 +135,6 @@ class FileTool:
             elif select_ == '5':
                 self.createNewFile()
             elif select_ == '6':
-                self.toJson()
-            elif select_ == '7':
                 break
 
 path = 'innovators.csv'
