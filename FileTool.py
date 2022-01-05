@@ -82,7 +82,7 @@ class FileTool:
         f_obj2.writelines(f_obj1)
         f_obj2.close()
         
-    def mergeFiles(self): # TODO some bugs will be fixed. tekrar duzenlenmeli
+    def mergeFiles(self): # TODO some bugs will be fixed.
         '''
         - Merges JSON or CSV all files in path.
         '''
