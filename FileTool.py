@@ -16,7 +16,7 @@ class FileTool:
         '''
         return os.path.exists(self.path)
     
-    def createNewFile(self):
+    def createNewFile(self): 
         '''
         - If there is no file matching the format in the path, 
         - it creates a new file.
@@ -39,7 +39,7 @@ class FileTool:
             for row in reader:
                 json.dump(row, file_json)
 
-    def searchData(self):
+    def searchData(self): 
         '''
         - Prints the data containing the searched word.
         '''
@@ -48,7 +48,7 @@ class FileTool:
             for line in f.readlines():
                 if search_ in line:
                     print(line)
-
+                    
     def appendData(self):
         '''
         - Adds new data to the data in a new row.
@@ -74,11 +74,15 @@ class FileTool:
         '''
         - Updates the desired data.
         '''
-        df = pd.read_csv(self.path)
-        df.replace('{}'.format(input("Enter a old value: ")),'{}'.format(input("Enter a new value: ")), inplace=True)
-        return df
-
-    def mergeFiles(self): # TODO some bugs will be fixed.
+        old_data = input("Enter old data: ")
+        new_data = input("Enter new data: ")
+        f_obj1 = open(self.path,'r')
+        f_obj1 = ''.join([i for i in f_obj1]).replace(old_data, new_data)
+        f_obj2 = open(self.path,'w')
+        f_obj2.writelines(f_obj1)
+        f_obj2.close()
+        
+    def mergeFiles(self): # TODO some bugs will be fixed. tekrar duzenlenmeli
         '''
         - Merges JSON or CSV all files in path.
         '''
@@ -122,6 +126,6 @@ class FileTool:
             elif select_ == '7':
                 break
 
-path = 'deneme2.csv'
+path = 'innovators.csv'
 ft = FileTool(path, fields=['Name','Contribution'])
 ft.Menu()
