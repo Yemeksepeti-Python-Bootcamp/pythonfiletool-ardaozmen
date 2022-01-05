@@ -48,7 +48,27 @@ class FileTool:
             for line in f.readlines():
                 if search_ in line:
                     print(line)
-                    
+    
+    def displayJsonLine(self):
+        '''
+        - Displays the searched data in json format.
+        - It is a different version of the searchData function.
+        '''
+        search_ = input("Search a dataframe value: ")
+        with open(path, 'r') as f:
+            for headers in f.readlines(1):
+                headers = headers.split(',')
+            for line in f.readlines():
+                if search_ in line:
+                    res = {}
+                    elems = line.split(',')
+                    for key in headers:
+                        for value in elems:
+                            res[key] = value
+                            elems.remove(value)
+                            break
+                    print(res)
+
     def appendData(self):
         '''
         - Adds new data to the data in a new row.
